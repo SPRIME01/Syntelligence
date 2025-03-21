@@ -1,6 +1,6 @@
 # 🧠 Syntelligence
 
-> 🚀 Transform Your Thinking with an AI-Enhanced Cognitive Workspace
+> 🚀 Transform Your Thinking with an AI-Enhanced syntelligence
 
 [![Build Status](https://img.shields.io/github/workflow/status/username/cognitive-workspace/CI?style=flat-square)](https://github.com/username/cognitive-workspace/actions)
 [![License](https://img.shields.io/badge/license-GPL%20v3-blue.svg?style=flat-square)](LICENSE)
@@ -9,7 +9,11 @@
 
 ## 🌟 Vision
 
-Cognitive Workspace transforms knowledge work by providing an AI-powered environment where thinking processes are externalized through dynamic cognitive artifacts that evolve into polished intellectual outputs. It's designed to augment human cognition, structure knowledge work, and enable effective human-AI collaboration.
+Syntelligence is your digital command center for knowledge work—where artificial intelligence meets human intelligence. Our platform provides a unified environment that adapts to your thinking process, seamlessly integrating advanced AI capabilities with intuitive knowledge management tools.
+
+At its core, Syntelligence transforms knowledge work by providing an AI-enhanced workspace where thinking processes are externalized through dynamic cognitive artifacts that evolve into polished intellectual outputs. The platform helps you capture insights, make connections, and develop ideas with unprecedented clarity and speed.
+
+Whether you're researching, writing, analyzing data, or solving complex problems, Syntelligence augments your cognitive abilities by eliminating busywork, allowing you to focus on creating meaningful work that makes an impact. Experience the next evolution in knowledge work: a true partnership between human creativity and machine intelligence.
 
 ## ✨ Key Features
 
@@ -22,7 +26,7 @@ Cognitive Workspace transforms knowledge work by providing an AI-powered environ
 
 ## 🏗️ Architecture
 
-Cognitive Workspace follows **Domain-Driven Design** and **Clean Architecture** principles:
+Syntelligence follows **Domain-Driven Design** and **Clean Architecture** principles:
 
 - 🧩 **Hexagonal Architecture** (Ports & Adapters) for flexible integration
 - 📣 **Event-Driven Architecture** using message bus for loose coupling
@@ -52,8 +56,8 @@ Cognitive Workspace follows **Domain-Driven Design** and **Clean Architecture** 
 - 🐳 Docker and Docker Compose
 - 🐍 Python 3.10+
 - 📦 Node.js 16+
-- 🧶 Yarn
-- 📝 Poetry (Python dependency management)
+- 📦 NPM
+- 📝 UV (Python dependency management)
 
 ## 🚀 Getting Started
 
@@ -77,11 +81,11 @@ cp .env.example .env
 
 ```bash
 # Start all services using Docker
-yarn dev
+npm run dev
 
 # Or start only specific components
-yarn start:client
-yarn start:services
+npm run client
+npm run services
 ```
 
 4. **Access the application**
@@ -111,16 +115,16 @@ cognitive-workspace/
 
 ```bash
 # Run tests
-yarn test
+npm run test
 
 # Lint code
-yarn lint
+npm run lint
 
 # Format code
-yarn format
+npm run format
 
 # Build for production
-yarn build
+npm run build
 ```
 
 ## 🧪 Testing
@@ -135,11 +139,11 @@ Run tests with:
 
 ```bash
 # Run all tests
-yarn test
+npm run test
 
 # Run specific service tests
 cd services/conversation-service
-poetry run pytest
+uv run pytest
 ```
 
 ## 📚 Documentation
@@ -151,7 +155,7 @@ poetry run pytest
 
 ## 🤝 Contributing
 
-We welcome contributions to Cognitive Workspace! Please check out our [Contributing Guide](CONTRIBUTING.md) to learn more about:
+We welcome contributions to syntelligence! Please check out our [Contributing Guide](CONTRIBUTING.md) to learn more about:
 
 - 🐛 Reporting issues
 - 🌱 Feature requests
@@ -162,7 +166,7 @@ We welcome contributions to Cognitive Workspace! Please check out our [Contribut
 
 ## 📊 Project Status
 
-Cognitive Workspace is currently in **Alpha** development. We're actively working on core features and stabilizing the architecture.
+syntelligence is currently in **Alpha** development. We're actively working on core features and stabilizing the architecture.
 
 - ✅ Conversation System
 - ✅ Basic Cognitive Artifacts
@@ -173,7 +177,7 @@ Cognitive Workspace is currently in **Alpha** development. We're actively workin
 
 ## 📜 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the GPL-3.0 License - see the [LICENSE](LICENSE) file for details.
 
 
 
@@ -181,4 +185,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ⭐ If you find this project useful, please consider giving it a star!
 
-📧 **Contact:** [team@cognitive-workspace.com](mailto:team@cognitive-workspace.com)
