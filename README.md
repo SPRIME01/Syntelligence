@@ -1,6 +1,6 @@
 # 🧠 Syntelligence
 
-> 🚀 Transform Your Thinking with an AI-Enhanced syntelligence
+> 🚀 Transform Your Thinking with AI-Enhanced Syntelligence
 
 [![Build Status](https://img.shields.io/github/workflow/status/username/cognitive-workspace/CI?style=flat-square)](https://github.com/username/cognitive-workspace/actions)
 [![License](https://img.shields.io/badge/license-GPL%20v3-blue.svg?style=flat-square)](LICENSE)
