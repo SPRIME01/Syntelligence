@@ -1,0 +1,21 @@
+{
+    "entryPoints": [
+        "./src"
+    ],
+    "entryPointStrategy": "expand",
+    "out": "docs",
+    "excludePrivate": true,
+    "excludeProtected": false,
+    "excludeExternals": true,
+    "plugin": [
+        "typedoc-plugin-markdown"
+    ],
+    "readme": "none",
+    "name": "Syntelligence Client Documentation",
+    "includeVersion": true,
+    "categorizeByGroup": true,
+    "categoryOrder": [
+        "Main",
+        "*"
+    ]
+}

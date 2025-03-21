@@ -1,7 +1,7 @@
 site_name: Syntelligence
 site_description: Comprehensive API documentation for Syntelligence
 site_author: Samuel Prime
-repo_url: https://github.com/username/syntelligence
+repo_url: https://github.com/sprime01/syntelligence
 repo_name: Syntelligence
 
 nav:
@@ -86,7 +86,7 @@ plugins:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/username/syntelligence
+      link: https://github.com/sprime/syntelligence
 
 watch:
-  - backend/app/
+  - client/src/

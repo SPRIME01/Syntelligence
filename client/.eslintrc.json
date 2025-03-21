@@ -1,0 +1,27 @@
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "rules": {
+        "valid-jsdoc": [
+            "error",
+            {
+                "requireReturn": true,
+                "requireReturnType": true,
+                "requireParamDescription": true,
+                "requireReturnDescription": true,
+                "prefer": {
+                    "returns": "return"
+                }
+            }
+        ],
+        "@typescript-eslint/explicit-function-return-type": "error",
+        "@typescript-eslint/explicit-module-boundary-types": "error"
+    }
+}
