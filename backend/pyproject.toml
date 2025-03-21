@@ -1,0 +1,82 @@
+[project]
+name = "backend"
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    { name = "Samuel Prime", email = "sprime01@gmail.com" }
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "pydantic>=2.10.6",
+    "fastapi>=0.109.0", # For HTTP interface
+    "uvicorn>=0.27.0", # ASGI server
+    "typing-extensions>=4.9.0", # For Protocol support
+    "python-jose[cryptography]>=3.3.0", # For JWT handling
+    "structlog>=24.1.0", # Structured logging
+    "httpx>=0.27.0", # For FastAPI testing
+    "dependency-injector>=4.41.0", # For dependency injection
+    "strawberry-graphql==0.183.0", # Older version with fewer dependencies
+    "graphql-core==3.2.3", # Ensure this matches what strawberry expects
+    "pyjwt>=2.10.1",
+    "pynacl>=1.5.0",
+    "cryptography>=44.0.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.1.0",  # For coverage reporting
+    "pytest-asyncio>=0.23.5",  # For async test support
+    "mypy>=1.8.0",  # Static type checking
+    "ruff>=0.2.0",  # Fast Python linter
+    "freezegun>=0.18.0",  # For mocking time
+]
+docs = [
+    "mkdocs>=1.5.3",  # Documentation generator
+    "mkdocs-material>=9.5.3",  # Material theme for MkDocs
+    "mkdocstrings>=0.24.0",  # Extract documentation from docstrings
+    "mkdocstrings-python>=1.7.5",  # Python handler for mkdocstrings
+    "mkdocs-swagger-ui-tag>=0.6.7",  # Swagger UI integration
+    "mkdocs-autorefs>=0.5.0",  # Auto-reference links
+    "mkdocs-gen-files>=0.5.0",  # Generate files for documentation
+    "mkdocs-literate-nav>=0.6.1",  # Generate navigation from files
+    "mkdocs-section-index>=0.3.8",  # Add section index pages
+    "pymdown-extensions>=10.7.1",  # Markdown extensions
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "."
+]
+testpaths = ["tests"]
+addopts = "-ra -q"
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+python_files = ["test_*.py"]
+asyncio_mode = "strict"
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+check_untyped_defs = true
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+select = ["E", "F", "B", "I"]
+ignore = []
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
+
+[tool.black]
+line-length = 88
+target-version = ['py312']

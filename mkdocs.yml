@@ -1,0 +1,92 @@
+site_name: Syntelligence
+site_description: Comprehensive API documentation for Syntelligence
+site_author: Samuel Prime
+repo_url: https://github.com/username/syntelligence
+repo_name: Syntelligence
+
+nav:
+  - Home: index.md
+  - API Reference:
+    - Overview: api/index.md
+    - Endpoints: api/endpoints.md
+    - Models: api/models.md
+  - Developer Guide:
+    - Setup: dev/setup.md
+    - Contributing: dev/contributing.md
+  - Architecture:
+    - Overview: architecture/overview.md
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.tracking
+    - navigation.sections
+    - navigation.expand
+    - navigation.indexes
+    - navigation.top
+    - search.highlight
+    - search.share
+    - content.code.copy
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+  - autorefs
+  - gen-files:
+      scripts:
+        - docs/gen_ref_pages.py
+  - literate-nav:
+      nav_file: SUMMARY.md
+  - section-index
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          rendering:
+            show_source: true
+            show_category_heading: true
+            show_if_no_docstring: true
+            heading_level: 3
+          selection:
+            inherited_members: true
+            filters:
+              - "!^_"
+              - "^__init__$"
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/username/syntelligence
+
+watch:
+  - backend/app/
