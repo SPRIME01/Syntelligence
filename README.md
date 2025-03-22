@@ -43,13 +43,14 @@ Syntelligence follows **Domain-Driven Design** and **Clean Architecture** princi
 - 📩 RabbitMQ for message broker
 - 📊 PostgreSQL for structured data
 - 📝 MongoDB for document storage
-- 🕸️ Neo4j for knowledge graph
+- 🕸️ ArangoDB for knowledge graph
 
 ### Frontend
 - ⚛️ React with TypeScript
 - 🎨 Styled Components
 - 🧠 Redux Toolkit for state management
 - 📊 D3.js for visualizations
+- 🎞️ Motion for animation
 
 ## 📋 Prerequisites
 

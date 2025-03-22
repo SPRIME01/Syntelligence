@@ -1,0 +1,191 @@
+# infrastructure/docker/docker-compose.yml
+version: '3.8'
+
+services:
+  api-gateway:
+    build:
+      context: ../../
+      dockerfile: ./infrastructure/docker/api-gateway/Dockerfile
+    ports:
+      - "${API_GATEWAY_PORT}:${API_GATEWAY_PORT}"
+    environment:
+      - CONVERSATION_SERVICE_URL=${CONVERSATION_SERVICE_URL}
+      - ARTIFACT_SERVICE_URL=${ARTIFACT_SERVICE_URL}
+      - AGENT_SERVICE_URL=${AGENT_SERVICE_URL}
+      - KNOWLEDGE_SERVICE_URL=${KNOWLEDGE_SERVICE_URL}
+      - USER_SERVICE_URL=${USER_SERVICE_URL}
+    depends_on:
+      conversation-service:
+        condition: service_healthy
+      artifact-service:
+        condition: service_healthy
+      agent-service:
+        condition: service_healthy
+      knowledge-service:
+        condition: service_healthy
+      user-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${API_GATEWAY_PORT}/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  conversation-service:
+    build:
+      context: ../../
+      dockerfile: ./infrastructure/docker/conversation-service/Dockerfile
+    ports:
+      - "${CONVERSATION_SERVICE_PORT}:${CONVERSATION_SERVICE_PORT}"
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - RABBITMQ_URI=${RABBITMQ_URI}
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${CONVERSATION_SERVICE_PORT}/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  artifact-service:
+    build:
+      context: ../../
+      dockerfile: ./infrastructure/docker/artifact-service/Dockerfile
+    ports:
+      - "${ARTIFACT_SERVICE_PORT}:${ARTIFACT_SERVICE_PORT}"
+    environment:
+      - POSTGRES_URI=${POSTGRES_ARTIFACTS_URI}
+      - RABBITMQ_URI=${RABBITMQ_URI}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+
+  agent-service:
+    build:
+      context: ../../
+      dockerfile: ./infrastructure/docker/agent-service/Dockerfile
+    ports:
+      - "${AGENT_SERVICE_PORT}:${AGENT_SERVICE_PORT}"
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - RABBITMQ_URI=${RABBITMQ_URI}
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+
+  knowledge-service:
+    build:
+      context: ../../
+      dockerfile: ./infrastructure/docker/knowledge-service/Dockerfile
+    ports:
+      - "${KNOWLEDGE_SERVICE_PORT}:${KNOWLEDGE_SERVICE_PORT}"
+    environment:
+      - ARANGO_URI=${ARANGO_URI}
+      - ARANGO_DB=${ARANGO_DB}
+      - ARANGO_USER=${ARANGO_USER}
+      - ARANGO_PASSWORD=${ARANGO_ROOT_PASSWORD}
+      - RABBITMQ_URI=${RABBITMQ_URI}
+    depends_on:
+      arangodb:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+
+  user-service:
+    build:
+      context: ../../
+      dockerfile: ./infrastructure/docker/user-service/Dockerfile
+    ports:
+      - "${USER_SERVICE_PORT}:${USER_SERVICE_PORT}"
+    environment:
+      - POSTGRES_URI=${POSTGRES_USERS_URI}
+      - RABBITMQ_URI=${RABBITMQ_URI}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+
+  client:
+    build:
+      context: ../../client
+      dockerfile: ../infrastructure/docker/client/Dockerfile
+    ports:
+      - "${CLIENT_PORT}:${CLIENT_PORT}"
+    environment:
+      - API_URL=${API_URL}
+
+  # Databases
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "${MONGODB_PORT}:${MONGODB_PORT}"
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  postgres:
+    image: postgres:latest
+    ports:
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  arangodb:
+    image: arangodb:latest
+    ports:
+      - "${ARANGO_PORT}:${ARANGO_PORT}"
+    environment:
+      - ARANGO_ROOT_PASSWORD=${ARANGO_ROOT_PASSWORD}
+    volumes:
+      - arangodb_data:/var/lib/arangodb3
+    healthcheck:
+      test: ["CMD", "arangosh", "--server.endpoint", "tcp://127.0.0.1:8529", "--server.authentication", "false", "--javascript.execute-string", "'db._version()'"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 20s
+
+  # Message broker
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "${RABBITMQ_PORT}:${RABBITMQ_PORT}"
+      - "${RABBITMQ_MANAGEMENT_PORT}:${RABBITMQ_MANAGEMENT_PORT}"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+volumes:
+  mongo_data:
+  postgres_data:
+  arangodb_data:
+  rabbitmq_data:
